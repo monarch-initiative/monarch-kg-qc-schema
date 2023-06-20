@@ -1,0 +1,7 @@
+---
+name: monarch_kg_qc_schema
+author: Corey Cox. <69321580+amc-corey-cox@users.noreply.github.com>
+description: Schema for QC reports on the Monarch KG.
+source_schema_path: src/monarch_kg_qc_schema/schema/monarch_kg_qc_schema.yaml
+google_sheet_id: 1wVoaiFg47aT9YWNeRfTZ8tYHN8s8PAuDx5i2HUcDpvQ
+google_sheet_tabs: personinfo enums
