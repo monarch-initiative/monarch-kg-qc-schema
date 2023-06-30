@@ -37,13 +37,48 @@ classes:
     description: >-
       Represents a Report
     slots:
-      - primary_email
-      - birth_date
-      - age_in_years
-      - vital_status
+      - categories
+      - name
+      - namespaces
+      - total_number
     slot_usage:
-      primary_email:
-        pattern: "^\\S+@[\\S+\\.]+\\S+"
+      categories:
+        pattern: "^\\S+:\\S+"
+
+  EdgeReport:
+    is_a: Report
+    description: >-
+      Represents a report for a collection of edges
+    slots:
+      - missing
+      - node_types
+      - predicates
+
+  NodeReport:
+    is_a: Report
+    description: >-
+      Represents a report for a collection of nodes
+    slots:
+      - taxon
+
+  NodeTypeReport:
+    is_a: NodeReport
+    description: >-
+      Represents a report for a collection of nodes
+    slots:
+      - missing
+
+  PredicateReport:
+    is_a: Report
+    description: >-
+      Represents a report for predicates of a collection of edges
+    slots:
+      - missing_object_namespaces
+      - missing_objects
+      - missing_subject_namespaces
+      - missing_subjects
+      - total_number
+      - uri
 
   ReportCollection:
     tree_root: true
@@ -55,42 +90,59 @@ classes:
         multivalued: true
         inlined: true
 
+  ReportSection:
+    is_a: ReportCollection
+    description: >-
+      A container for repo
+
+
 slots:
   id:
     identifier: true
     slot_uri: schema:identifier
     range: uriorcurie
     description: A unique identifier for a thing
-  name:
-    slot_uri: schema:name
-    description: A human-readable name for a thing
+  categories:
+    slot_uri: schema:categories
+    description: The categories of the node or edge objects
   description:
     slot_uri: schema:description
     description: A human-readable description for a thing
-  primary_email:
-    slot_uri: schema:email
-    description: The main email address of a person
-  birth_date:
-    slot_uri: schema:birthDate
-    range: date
-    description: Date on which a person is born
-  age_in_years:
+  missing:
     range: integer
-    description: Number of years since birth
-  vital_status:
-    range: PersonStatus
-    description: living or dead status
-
-enums:
-  PersonStatus:
-    permissible_values:
-      ALIVE:
-        description: the person is living
-        meaning: PATO:0001421
-      DEAD:
-        description: the person is deceased
-        meaning: PATO:0001422
-      UNKNOWN:
-        description: the vital status is not known
-        todos:
-          - map this to an ontology
+    description: Number of missing of type in collection
+  missing_object_namespaces:
+    slot_uri: schema:missing_object_namespaces
+    description: Namespaces of missing objects from predicate edges collection
+  missing_objects:
+    range: integer
+    description: Number of missing objects in edges of predicate collection
+  missing_subject_namespaces:
+    slot_uri: schema:missing_subject_namespaces
+    description: Namespaces of mission subjects from predicate edges collection
+  missing_subjects:
+    range: integer
+    description: Number of mission subjects in edges of predicate collection
+  name:
+    slot_uri: schema:name
+    description: A human-readable name for a thing
+  namespaces:
+    slot_uri: schema:namespaces
+    description: The namespaces of the node or edge objects
+  node_types:
+    slot_uri: schema:node_types
+    range: NodeTypeReport
+    description: NodeType reports for the edges collection
+  predicates:
+    slot_uri: schema:predicates
+    range: PredicateReport
+    description: Predicate reports for the edges collection
+  taxon:
+    slot_uri: schema:taxon
+    description: The taxons of the nodes in the collection
+  total_number:
+    range: integer
+    description: Total number of edge or node objects
+  uri:
+    slot_uri: schema:uri
+    description: Predicate URI for the group of edges
