@@ -90,6 +90,12 @@ classes:
         multivalued: true
         inlined: true
 
+  ReportSection:
+    is_a: ReportCollection
+    description: >-
+      A container for repo
+
+
 slots:
   id:
     identifier: true
