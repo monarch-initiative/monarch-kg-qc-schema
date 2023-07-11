@@ -11,10 +11,10 @@ see_also:
 prefixes:
   monarch_kg_qc_schema: https://w3id.org/monarch-initiative/monarch-kg-qc-schema/
   linkml: https://w3id.org/linkml/
-  biolink: https://w3id.org/biolink/
+  biolink: https://w3id.org/biolink/vocab/
   schema: http://schema.org/
   PATO: http://purl.obolibrary.org/obo/PATO_
-  example: https://example.org/
+  example: http://www.example.org/rdf#
 default_prefix: monarch_kg_qc_schema
 default_range: string
 
@@ -22,7 +22,6 @@ imports:
   - linkml:types
 
 classes:
-
   NamedThing:
     description: >-
       A generic grouping for any identifiable entity
@@ -33,12 +32,19 @@ classes:
     class_uri: schema:Thing
 
   Report:
-    is_a: NamedThing
     description: >-
       Represents a Report
     slots:
+      - dangling_edges
+      - edges
+      - nodes
+
+  SubReport:
+    is_a: NamedThing
+    description: >-
+      Represents a report section for a knowledge graph of entity type
+    slots:
       - categories
-      - name
       - namespaces
       - total_number
     slot_usage:
@@ -46,18 +52,18 @@ classes:
         pattern: "^\\S+:\\S+"
 
   EdgeReport:
-    is_a: Report
+    is_a: SubReport
     description: >-
-      Represents a report for a collection of edges
+      Represents a sub report for a collection of edges
     slots:
       - missing
       - node_types
       - predicates
 
   NodeReport:
-    is_a: Report
+    is_a: SubReport
     description: >-
-      Represents a report for a collection of nodes
+      Represents a sub report for a collection of nodes
     slots:
       - taxon
 
@@ -86,17 +92,27 @@ classes:
       A holder for Report objects
     attributes:
       entries:
+        description: >-
+          A report within the collection
         range: Report
         multivalued: true
         inlined: true
 
-  ReportSection:
-    is_a: ReportCollection
-    description: >-
-      A container for repo
-
 
 slots:
+  dangling_edges:
+    slot_uri: schema:dangling_edges
+    range: SubReport
+    description: An EdgeReport for dangling edges in the knowledge graph
+  edges:
+    slot_uri: schema:edges
+    range: EdgeReport
+    description: An EdgeReport for edges in the knowledge graph
+  nodes:
+    slot_uri: schema:nodes
+    range: NodeReport
+    description: A NodeReport for nodes in the knowledge graph
+
   id:
     identifier: true
     slot_uri: schema:identifier
