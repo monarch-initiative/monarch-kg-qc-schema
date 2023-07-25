@@ -1,158 +1,289 @@
 {
     "$defs": {
-        "NamedThing": {
+        "EdgeReport": {
             "additionalProperties": false,
-            "description": "A generic grouping for any identifiable entity",
+            "description": "Represents a sub report for a collection of edges",
             "properties": {
+                "categories": {
+                    "description": "The categories of the node or edge objects",
+                    "items": {
+                        "pattern": "^\\S+:\\S+",
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
                 "description": {
                     "description": "A human-readable description for a thing",
                     "type": "string"
                 },
-                "id": {
-                    "description": "A unique identifier for a thing",
+                "missing": {
+                    "description": "Number of missing of type in collection",
+                    "type": "integer"
+                },
+                "name": {
+                    "description": "A human-readable name for a thing",
+                    "type": "string"
+                },
+                "namespaces": {
+                    "description": "The namespaces of the node or edge objects",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "node_types": {
+                    "description": "NodeType reports for the edges collection",
+                    "items": {
+                        "$ref": "#/$defs/NodeTypeReport"
+                    },
+                    "type": "array"
+                },
+                "predicates": {
+                    "description": "Predicate reports for the edges collection",
+                    "items": {
+                        "$ref": "#/$defs/PredicateReport"
+                    },
+                    "type": "array"
+                },
+                "total_number": {
+                    "description": "Total number of edge or node objects",
+                    "type": "integer"
+                }
+            },
+            "title": "EdgeReport",
+            "type": "object"
+        },
+        "NodeReport": {
+            "additionalProperties": false,
+            "description": "Represents a sub report for a collection of nodes",
+            "properties": {
+                "categories": {
+                    "description": "The categories of the node or edge objects",
+                    "items": {
+                        "pattern": "^\\S+:\\S+",
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "description": {
+                    "description": "A human-readable description for a thing",
                     "type": "string"
                 },
                 "name": {
                     "description": "A human-readable name for a thing",
                     "type": "string"
+                },
+                "namespaces": {
+                    "description": "The namespaces of the node or edge objects",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "taxon": {
+                    "description": "The taxons of the nodes in the collection",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "total_number": {
+                    "description": "Total number of edge or node objects",
+                    "type": "integer"
                 }
             },
-            "required": [
-                "id"
-            ],
-            "title": "NamedThing",
+            "title": "NodeReport",
             "type": "object"
         },
-        "PersonStatus": {
-            "description": "",
-            "enum": [
-                "ALIVE",
-                "DEAD",
-                "UNKNOWN"
-            ],
-            "title": "PersonStatus",
-            "type": "string"
+        "NodeTypeReport": {
+            "additionalProperties": false,
+            "description": "Represents a report for a collection of nodes",
+            "properties": {
+                "categories": {
+                    "description": "The categories of the node or edge objects",
+                    "items": {
+                        "pattern": "^\\S+:\\S+",
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "description": {
+                    "description": "A human-readable description for a thing",
+                    "type": "string"
+                },
+                "missing": {
+                    "description": "Number of missing of type in collection",
+                    "type": "integer"
+                },
+                "name": {
+                    "description": "A human-readable name for a thing",
+                    "type": "string"
+                },
+                "namespaces": {
+                    "description": "The namespaces of the node or edge objects",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "taxon": {
+                    "description": "The taxons of the nodes in the collection",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "total_number": {
+                    "description": "Total number of edge or node objects",
+                    "type": "integer"
+                }
+            },
+            "title": "NodeTypeReport",
+            "type": "object"
+        },
+        "PredicateReport": {
+            "additionalProperties": false,
+            "description": "Represents a report for predicates of a collection of edges",
+            "properties": {
+                "missing_object_namespaces": {
+                    "description": "Namespaces of missing objects from predicate edges collection",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "missing_objects": {
+                    "description": "Number of missing objects in edges of predicate collection",
+                    "type": "integer"
+                },
+                "missing_subject_namespaces": {
+                    "description": "Namespaces of mission subjects from predicate edges collection",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "missing_subjects": {
+                    "description": "Number of mission subjects in edges of predicate collection",
+                    "type": "integer"
+                },
+                "total_number": {
+                    "description": "Total number of edge or node objects",
+                    "type": "integer"
+                },
+                "uri": {
+                    "description": "Predicate URI for the group of edges",
+                    "type": "string"
+                }
+            },
+            "title": "PredicateReport",
+            "type": "object"
         },
         "Report": {
             "additionalProperties": false,
             "description": "Represents a Report",
             "properties": {
-                "age_in_years": {
-                    "description": "Number of years since birth",
-                    "type": "integer"
-                },
-                "birth_date": {
-                    "description": "Date on which a person is born",
-                    "format": "date",
-                    "type": "string"
-                },
-                "description": {
-                    "description": "A human-readable description for a thing",
-                    "type": "string"
-                },
-                "id": {
-                    "description": "A unique identifier for a thing",
-                    "type": "string"
-                },
-                "name": {
-                    "description": "A human-readable name for a thing",
-                    "type": "string"
-                },
-                "primary_email": {
-                    "description": "The main email address of a person",
-                    "pattern": "^\\S+@[\\S+\\.]+\\S+",
-                    "type": "string"
-                },
-                "vital_status": {
-                    "$ref": "#/$defs/PersonStatus",
-                    "description": "living or dead status"
-                }
-            },
-            "required": [
-                "id"
-            ],
-            "title": "Report",
-            "type": "object"
-        },
-        "ReportCollection": {
-            "additionalProperties": false,
-            "description": "A holder for Report objects",
-            "properties": {
-                "entries": {
-                    "additionalProperties": {
-                        "anyOf": [
-                            {
-                                "$ref": "#/$defs/Report__identifier_optional"
-                            },
-                            {
-                                "type": "null"
-                            }
-                        ]
+                "dangling_edges": {
+                    "description": "Represents a report for dangling edges",
+                    "items": {
+                        "$ref": "#/$defs/EdgeReport"
                     },
-                    "type": "object"
+                    "type": "array"
+                },
+                "edges": {
+                    "description": "Represents a report for edges",
+                    "items": {
+                        "$ref": "#/$defs/EdgeReport"
+                    },
+                    "type": "array"
+                },
+                "missing_nodes": {
+                    "description": "Represents a report for missing nodes",
+                    "items": {
+                        "$ref": "#/$defs/NodeReport"
+                    },
+                    "type": "array"
+                },
+                "nodes": {
+                    "description": "Represents a report for nodes",
+                    "items": {
+                        "$ref": "#/$defs/NodeReport"
+                    },
+                    "type": "array"
                 }
             },
-            "title": "ReportCollection",
+            "title": "Report",
             "type": "object"
         },
-        "Report__identifier_optional": {
+        "SubReport": {
             "additionalProperties": false,
-            "description": "Represents a Report",
+            "description": "Represents a report section for a knowledge graph of entity type",
             "properties": {
-                "age_in_years": {
-                    "description": "Number of years since birth",
-                    "type": "integer"
-                },
-                "birth_date": {
-                    "description": "Date on which a person is born",
-                    "format": "date",
-                    "type": "string"
+                "categories": {
+                    "description": "The categories of the node or edge objects",
+                    "items": {
+                        "pattern": "^\\S+:\\S+",
+                        "type": "string"
+                    },
+                    "type": "array"
                 },
                 "description": {
                     "description": "A human-readable description for a thing",
-                    "type": "string"
-                },
-                "id": {
-                    "description": "A unique identifier for a thing",
                     "type": "string"
                 },
                 "name": {
                     "description": "A human-readable name for a thing",
                     "type": "string"
                 },
-                "primary_email": {
-                    "description": "The main email address of a person",
-                    "pattern": "^\\S+@[\\S+\\.]+\\S+",
-                    "type": "string"
+                "namespaces": {
+                    "description": "The namespaces of the node or edge objects",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
                 },
-                "vital_status": {
-                    "$ref": "#/$defs/PersonStatus",
-                    "description": "living or dead status"
+                "total_number": {
+                    "description": "Total number of edge or node objects",
+                    "type": "integer"
                 }
             },
-            "required": [],
-            "title": "Report",
+            "title": "SubReport",
             "type": "object"
         }
     },
     "$id": "https://w3id.org/monarch-initiative/monarch-kg-qc-schema",
     "$schema": "http://json-schema.org/draft-07/schema#",
     "additionalProperties": true,
-    "description": "A holder for Report objects",
+    "description": "Represents a Report",
     "metamodel_version": "1.7.0",
     "properties": {
-        "entries": {
-            "additionalProperties": {
-                "anyOf": [
-                    {
-                        "$ref": "#/$defs/Report__identifier_optional"
-                    },
-                    {
-                        "type": "null"
-                    }
-                ]
+        "dangling_edges": {
+            "description": "Represents a report for dangling edges",
+            "items": {
+                "$ref": "#/$defs/EdgeReport"
             },
-            "type": "object"
+            "type": "array"
+        },
+        "edges": {
+            "description": "Represents a report for edges",
+            "items": {
+                "$ref": "#/$defs/EdgeReport"
+            },
+            "type": "array"
+        },
+        "missing_nodes": {
+            "description": "Represents a report for missing nodes",
+            "items": {
+                "$ref": "#/$defs/NodeReport"
+            },
+            "type": "array"
+        },
+        "nodes": {
+            "description": "Represents a report for nodes",
+            "items": {
+                "$ref": "#/$defs/NodeReport"
+            },
+            "type": "array"
         }
     },
     "title": "monarch-kg-qc-schema",

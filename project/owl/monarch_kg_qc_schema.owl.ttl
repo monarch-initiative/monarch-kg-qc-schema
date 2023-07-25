@@ -1,9 +1,7 @@
 @prefix IAO: <http://purl.obolibrary.org/obo/IAO_> .
-@prefix PATO: <http://purl.obolibrary.org/obo/PATO_> .
 @prefix linkml: <https://w3id.org/linkml/> .
 @prefix monarch_kg_qc_schema: <https://w3id.org/monarch-initiative/monarch-kg-qc-schema/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix schema1: <http://schema.org/> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
@@ -18,50 +16,71 @@ linkml:topValue a owl:DatatypeProperty ;
 
 <https://w3id.org/monarch-initiative/monarch-kg-qc-schema> a owl:Ontology ;
     rdfs:label "monarch-kg-qc-schema" ;
-    IAO:0000700 monarch_kg_qc_schema:NamedThing,
-        monarch_kg_qc_schema:ReportCollection ;
+    IAO:0000700 monarch_kg_qc_schema:PredicateReport,
+        monarch_kg_qc_schema:Report,
+        monarch_kg_qc_schema:SubReport ;
     linkml:id "https://w3id.org/monarch-initiative/monarch-kg-qc-schema" ;
     linkml:imports "linkml:types" .
 
-monarch_kg_qc_schema:ReportCollection a owl:Class,
+monarch_kg_qc_schema:Report a owl:Class,
         linkml:ClassDefinition ;
-    rdfs:label "ReportCollection" ;
+    rdfs:label "Report" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:allValuesFrom monarch_kg_qc_schema:Report ;
-            owl:onProperty monarch_kg_qc_schema:entries ] ;
-    skos:definition "A holder for Report objects" .
+            owl:allValuesFrom monarch_kg_qc_schema:NodeReport ;
+            owl:onProperty monarch_kg_qc_schema:nodes ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom monarch_kg_qc_schema:NodeReport ;
+            owl:onProperty monarch_kg_qc_schema:missing_nodes ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom monarch_kg_qc_schema:EdgeReport ;
+            owl:onProperty monarch_kg_qc_schema:dangling_edges ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom monarch_kg_qc_schema:EdgeReport ;
+            owl:onProperty monarch_kg_qc_schema:edges ] ;
+    skos:definition "Represents a Report" .
 
-monarch_kg_qc_schema:age_in_years a owl:ObjectProperty,
+monarch_kg_qc_schema:dangling_edges a owl:ObjectProperty,
         linkml:SlotDefinition ;
-    rdfs:label "age_in_years" ;
+    rdfs:label "dangling_edges" ;
+    rdfs:range monarch_kg_qc_schema:EdgeReport ;
+    skos:definition "Represents a report for dangling edges" .
+
+monarch_kg_qc_schema:edges a owl:ObjectProperty,
+        linkml:SlotDefinition ;
+    rdfs:label "edges" ;
+    rdfs:range monarch_kg_qc_schema:EdgeReport ;
+    skos:definition "Represents a report for edges" .
+
+monarch_kg_qc_schema:missing_nodes a owl:ObjectProperty,
+        linkml:SlotDefinition ;
+    rdfs:label "missing_nodes" ;
+    rdfs:range monarch_kg_qc_schema:NodeReport ;
+    skos:definition "Represents a report for missing nodes" .
+
+monarch_kg_qc_schema:missing_objects a owl:ObjectProperty,
+        linkml:SlotDefinition ;
+    rdfs:label "missing_objects" ;
     rdfs:range linkml:Integer ;
-    skos:definition "Number of years since birth" .
+    skos:definition "Number of missing objects in edges of predicate collection" .
 
-monarch_kg_qc_schema:entries a owl:ObjectProperty,
+monarch_kg_qc_schema:missing_subjects a owl:ObjectProperty,
         linkml:SlotDefinition ;
-    rdfs:label "entries" ;
-    rdfs:range monarch_kg_qc_schema:Report .
+    rdfs:label "missing_subjects" ;
+    rdfs:range linkml:Integer ;
+    skos:definition "Number of mission subjects in edges of predicate collection" .
 
-monarch_kg_qc_schema:vital_status a owl:ObjectProperty,
+monarch_kg_qc_schema:nodes a owl:ObjectProperty,
         linkml:SlotDefinition ;
-    rdfs:label "vital_status" ;
-    rdfs:range monarch_kg_qc_schema:PersonStatus ;
-    skos:definition "living or dead status" .
+    rdfs:label "nodes" ;
+    rdfs:range monarch_kg_qc_schema:NodeReport ;
+    skos:definition "Represents a report for nodes" .
 
-PATO:0001421 a owl:Class,
-        monarch_kg_qc_schema:PersonStatus ;
-    rdfs:label "ALIVE" .
-
-PATO:0001422 a owl:Class,
-        monarch_kg_qc_schema:PersonStatus ;
-    rdfs:label "DEAD" .
-
-schema1:birthDate a owl:ObjectProperty,
+schema1:categories a owl:ObjectProperty,
         linkml:SlotDefinition ;
-    rdfs:label "birth_date" ;
-    rdfs:range linkml:Date ;
-    skos:definition "Date on which a person is born" ;
-    skos:exactMatch schema1:birthDate .
+    rdfs:label "categories" ;
+    rdfs:range linkml:String ;
+    skos:definition "The categories of the node or edge objects" ;
+    skos:exactMatch schema1:categories .
 
 schema1:description a owl:ObjectProperty,
         linkml:SlotDefinition ;
@@ -70,19 +89,19 @@ schema1:description a owl:ObjectProperty,
     skos:definition "A human-readable description for a thing" ;
     skos:exactMatch schema1:description .
 
-schema1:email a owl:ObjectProperty,
+schema1:missing_object_namespaces a owl:ObjectProperty,
         linkml:SlotDefinition ;
-    rdfs:label "primary_email" ;
+    rdfs:label "missing_object_namespaces" ;
     rdfs:range linkml:String ;
-    skos:definition "The main email address of a person" ;
-    skos:exactMatch schema1:email .
+    skos:definition "Namespaces of missing objects from predicate edges collection" ;
+    skos:exactMatch schema1:missing_object_namespaces .
 
-schema1:identifier a owl:ObjectProperty,
+schema1:missing_subject_namespaces a owl:ObjectProperty,
         linkml:SlotDefinition ;
-    rdfs:label "id" ;
-    rdfs:range linkml:Uriorcurie ;
-    skos:definition "A unique identifier for a thing" ;
-    skos:exactMatch schema1:identifier .
+    rdfs:label "missing_subject_namespaces" ;
+    rdfs:range linkml:String ;
+    skos:definition "Namespaces of mission subjects from predicate edges collection" ;
+    skos:exactMatch schema1:missing_subject_namespaces .
 
 schema1:name a owl:ObjectProperty,
         linkml:SlotDefinition ;
@@ -91,59 +110,139 @@ schema1:name a owl:ObjectProperty,
     skos:definition "A human-readable name for a thing" ;
     skos:exactMatch schema1:name .
 
-monarch_kg_qc_schema:NamedThing a owl:Class,
+schema1:namespaces a owl:ObjectProperty,
+        linkml:SlotDefinition ;
+    rdfs:label "namespaces" ;
+    rdfs:range linkml:String ;
+    skos:definition "The namespaces of the node or edge objects" ;
+    skos:exactMatch schema1:namespaces .
+
+schema1:node_types a owl:ObjectProperty,
+        linkml:SlotDefinition ;
+    rdfs:label "node_types" ;
+    rdfs:range monarch_kg_qc_schema:NodeTypeReport ;
+    skos:definition "NodeType reports for the edges collection" ;
+    skos:exactMatch schema1:node_types .
+
+schema1:predicates a owl:ObjectProperty,
+        linkml:SlotDefinition ;
+    rdfs:label "predicates" ;
+    rdfs:range monarch_kg_qc_schema:PredicateReport ;
+    skos:definition "Predicate reports for the edges collection" ;
+    skos:exactMatch schema1:predicates .
+
+schema1:taxon a owl:ObjectProperty,
+        linkml:SlotDefinition ;
+    rdfs:label "taxon" ;
+    rdfs:range linkml:String ;
+    skos:definition "The taxons of the nodes in the collection" ;
+    skos:exactMatch schema1:taxon .
+
+schema1:uri a owl:ObjectProperty,
+        linkml:SlotDefinition ;
+    rdfs:label "uri" ;
+    rdfs:range linkml:String ;
+    skos:definition "Predicate URI for the group of edges" ;
+    skos:exactMatch schema1:uri .
+
+monarch_kg_qc_schema:NodeTypeReport a owl:Class,
         linkml:ClassDefinition ;
-    rdfs:label "NamedThing" ;
+    rdfs:label "NodeTypeReport" ;
     rdfs:subClassOf [ a owl:Restriction ;
             owl:maxQualifiedCardinality 1 ;
-            owl:onClass linkml:String ;
-            owl:onProperty schema1:description ],
+            owl:onClass linkml:Integer ;
+            owl:onProperty monarch_kg_qc_schema:missing ],
+        monarch_kg_qc_schema:NodeReport ;
+    skos:definition "Represents a report for a collection of nodes" .
+
+monarch_kg_qc_schema:missing a owl:ObjectProperty,
+        linkml:SlotDefinition ;
+    rdfs:label "missing" ;
+    rdfs:range linkml:Integer ;
+    skos:definition "Number of missing of type in collection" .
+
+monarch_kg_qc_schema:total_number a owl:ObjectProperty,
+        linkml:SlotDefinition ;
+    rdfs:label "total_number" ;
+    rdfs:range linkml:Integer ;
+    skos:definition "Total number of edge or node objects" .
+
+monarch_kg_qc_schema:PredicateReport a owl:Class,
+        linkml:ClassDefinition ;
+    rdfs:label "PredicateReport" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:maxQualifiedCardinality 1 ;
+            owl:onClass linkml:Integer ;
+            owl:onProperty monarch_kg_qc_schema:missing_subjects ],
         [ a owl:Restriction ;
+            owl:maxQualifiedCardinality 1 ;
+            owl:onClass linkml:String ;
+            owl:onProperty schema1:uri ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom linkml:String ;
+            owl:onProperty schema1:missing_object_namespaces ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom linkml:String ;
+            owl:onProperty schema1:missing_subject_namespaces ],
+        [ a owl:Restriction ;
+            owl:maxQualifiedCardinality 1 ;
+            owl:onClass linkml:Integer ;
+            owl:onProperty monarch_kg_qc_schema:missing_objects ],
+        [ a owl:Restriction ;
+            owl:maxQualifiedCardinality 1 ;
+            owl:onClass linkml:Integer ;
+            owl:onProperty monarch_kg_qc_schema:total_number ] ;
+    skos:definition "Represents a report for predicates of a collection of edges" .
+
+monarch_kg_qc_schema:SubReport a owl:Class,
+        linkml:ClassDefinition ;
+    rdfs:label "SubReport" ;
+    rdfs:subClassOf [ a owl:Restriction ;
             owl:maxQualifiedCardinality 1 ;
             owl:onClass linkml:String ;
             owl:onProperty schema1:name ],
         [ a owl:Restriction ;
-            owl:onClass linkml:Uriorcurie ;
-            owl:onProperty schema1:identifier ;
-            owl:qualifiedCardinality 1 ] ;
-    skos:definition "A generic grouping for any identifiable entity" ;
-    skos:exactMatch schema1:Thing .
-
-<https://w3id.org/monarch-initiative/monarch-kg-qc-schema/PersonStatus#UNKNOWN> a owl:Class,
-        monarch_kg_qc_schema:PersonStatus ;
-    rdfs:label "UNKNOWN" .
-
-monarch_kg_qc_schema:Report a owl:Class,
-        linkml:ClassDefinition ;
-    rdfs:label "Report" ;
-    rdfs:subClassOf [ a owl:Restriction ;
-            owl:maxQualifiedCardinality 1 ;
-            owl:onClass monarch_kg_qc_schema:PersonStatus ;
-            owl:onProperty monarch_kg_qc_schema:vital_status ],
+            owl:allValuesFrom linkml:String ;
+            owl:onProperty schema1:namespaces ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom linkml:String ;
+            owl:onProperty schema1:categories ],
         [ a owl:Restriction ;
             owl:maxQualifiedCardinality 1 ;
             owl:onClass linkml:Integer ;
-            owl:onProperty monarch_kg_qc_schema:age_in_years ],
+            owl:onProperty monarch_kg_qc_schema:total_number ],
         [ a owl:Restriction ;
             owl:maxQualifiedCardinality 1 ;
             owl:onClass linkml:String ;
-            owl:onProperty schema1:email ],
+            owl:onProperty schema1:description ] ;
+    skos:definition "Represents a report section for a knowledge graph of entity type" .
+
+monarch_kg_qc_schema:EdgeReport a owl:Class,
+        linkml:ClassDefinition ;
+    rdfs:label "EdgeReport" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom monarch_kg_qc_schema:PredicateReport ;
+            owl:onProperty schema1:predicates ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom monarch_kg_qc_schema:NodeTypeReport ;
+            owl:onProperty schema1:node_types ],
         [ a owl:Restriction ;
             owl:maxQualifiedCardinality 1 ;
-            owl:onClass linkml:Date ;
-            owl:onProperty schema1:birthDate ],
-        monarch_kg_qc_schema:NamedThing ;
-    skos:definition "Represents a Report" .
+            owl:onClass linkml:Integer ;
+            owl:onProperty monarch_kg_qc_schema:missing ],
+        monarch_kg_qc_schema:SubReport ;
+    skos:definition "Represents a sub report for a collection of edges" .
+
+monarch_kg_qc_schema:NodeReport a owl:Class,
+        linkml:ClassDefinition ;
+    rdfs:label "NodeReport" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom linkml:String ;
+            owl:onProperty schema1:taxon ],
+        monarch_kg_qc_schema:SubReport ;
+    skos:definition "Represents a sub report for a collection of nodes" .
 
 linkml:ClassDefinition a owl:Class .
-
-monarch_kg_qc_schema:PersonStatus a owl:Class,
-        linkml:EnumDefinition ;
-    rdfs:label "PersonStatus" ;
-    owl:unionOf ( PATO:0001421 PATO:0001422 <https://w3id.org/monarch-initiative/monarch-kg-qc-schema/PersonStatus#UNKNOWN> ) ;
-    linkml:permissible_values PATO:0001421,
-        PATO:0001422,
-        <https://w3id.org/monarch-initiative/monarch-kg-qc-schema/PersonStatus#UNKNOWN> .
 
 linkml:SlotDefinition a owl:Class .
 

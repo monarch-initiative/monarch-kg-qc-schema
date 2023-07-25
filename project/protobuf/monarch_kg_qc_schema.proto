@@ -1,23 +1,60 @@
-// A generic grouping for any identifiable entity
-message NamedThing
+// Represents a sub report for a collection of edges
+message EdgeReport
  {
-  uriorcurie id = 0
-  string name = 0
+ repeated  string categories = 0
   string description = 0
+  string name = 0
+ repeated  string namespaces = 0
+  integer totalNumber = 0
+  integer missing = 0
+ repeated  nodeTypeReport nodeTypes = 0
+ repeated  predicateReport predicates = 0
+ }
+// Represents a sub report for a collection of nodes
+message NodeReport
+ {
+ repeated  string categories = 0
+  string description = 0
+  string name = 0
+ repeated  string namespaces = 0
+  integer totalNumber = 0
+ repeated  string taxon = 0
+ }
+// Represents a report for a collection of nodes
+message NodeTypeReport
+ {
+ repeated  string categories = 0
+  string description = 0
+  string name = 0
+ repeated  string namespaces = 0
+  integer totalNumber = 0
+ repeated  string taxon = 0
+  integer missing = 0
+ }
+// Represents a report for predicates of a collection of edges
+message PredicateReport
+ {
+ repeated  string missingObjectNamespaces = 0
+  integer missingObjects = 0
+ repeated  string missingSubjectNamespaces = 0
+  integer missingSubjects = 0
+  integer totalNumber = 0
+  string uri = 0
  }
 // Represents a Report
 message Report
  {
-  uriorcurie id = 0
-  string name = 0
-  string description = 0
-  string primaryEmail = 0
-  date birthDate = 0
-  integer ageInYears = 0
-  personStatus vitalStatus = 0
+ repeated  edgeReport danglingEdges = 0
+ repeated  edgeReport edges = 0
+ repeated  nodeReport nodes = 0
+ repeated  nodeReport missingNodes = 0
  }
-// A holder for Report objects
-message ReportCollection
+// Represents a report section for a knowledge graph of entity type
+message SubReport
  {
- repeated  report entries = 0
+ repeated  string categories = 0
+  string description = 0
+  string name = 0
+ repeated  string namespaces = 0
+  integer totalNumber = 0
  }

@@ -1,23 +1,60 @@
-type NamedThing
+type EdgeReport
   {
-    id: Uriorcurie!
-    name: String
+    categories: [String]
     description: String
+    name: String
+    namespaces: [String]
+    totalNumber: Integer
+    missing: Integer
+    nodeTypes: [NodeTypeReport]
+    predicates: [PredicateReport]
+  }
+
+type NodeReport
+  {
+    categories: [String]
+    description: String
+    name: String
+    namespaces: [String]
+    totalNumber: Integer
+    taxon: [String]
+  }
+
+type NodeTypeReport
+  {
+    categories: [String]
+    description: String
+    name: String
+    namespaces: [String]
+    totalNumber: Integer
+    taxon: [String]
+    missing: Integer
+  }
+
+type PredicateReport
+  {
+    missingObjectNamespaces: [String]
+    missingObjects: Integer
+    missingSubjectNamespaces: [String]
+    missingSubjects: Integer
+    totalNumber: Integer
+    uri: String
   }
 
 type Report
   {
-    id: Uriorcurie!
-    name: String
-    description: String
-    primaryEmail: String
-    birthDate: Date
-    ageInYears: Integer
-    vitalStatus: PersonStatus
+    danglingEdges: [EdgeReport]
+    edges: [EdgeReport]
+    nodes: [NodeReport]
+    missingNodes: [NodeReport]
   }
 
-type ReportCollection
+type SubReport
   {
-    entries: [Report]
+    categories: [String]
+    description: String
+    name: String
+    namespaces: [String]
+    totalNumber: Integer
   }
 

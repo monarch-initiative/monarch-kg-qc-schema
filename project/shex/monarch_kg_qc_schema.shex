@@ -43,32 +43,70 @@ linkml:Jsonpath xsd:string
 
 linkml:Sparqlpath xsd:string
 
-<NamedThing>  (
+<EdgeReport> CLOSED {
+    (  $<EdgeReport_tes> (  &<SubReport_tes> ;
+          rdf:type [ <SubReport> ] ? ;
+          <missing> @linkml:Integer ? ;
+          schema1:node_types @<NodeTypeReport> * ;
+          schema1:predicates @<PredicateReport> *
+       ) ;
+       rdf:type [ <EdgeReport> ] ?
+    )
+}
+
+<NodeReport>  (
     CLOSED {
-       (  $<NamedThing_tes> (  schema1:name @linkml:String ? ;
-             schema1:description @linkml:String ?
+       (  $<NodeReport_tes> (  &<SubReport_tes> ;
+             rdf:type [ <SubReport> ] ? ;
+             schema1:taxon @linkml:String *
           ) ;
-          rdf:type [ schema1:Thing ]
+          rdf:type [ <NodeReport> ] ?
        )
-    } OR @<Report>
+    } OR @<NodeTypeReport>
 )
 
-<Report> CLOSED {
-    (  $<Report_tes> (  &<NamedThing_tes> ;
-          rdf:type [ schema1:Thing ] ? ;
-          schema1:email @linkml:String ? ;
-          schema1:birthDate @linkml:Date ? ;
-          <age_in_years> @linkml:Integer ? ;
-          <vital_status> @<PersonStatus> ?
+<NodeTypeReport> CLOSED {
+    (  $<NodeTypeReport_tes> (  &<NodeReport_tes> ;
+          rdf:type [ <NodeReport> ] ? ;
+          <missing> @linkml:Integer ?
        ) ;
-       rdf:type [ <Report> ]
+       rdf:type [ <NodeTypeReport> ] ?
     )
 }
 
-<ReportCollection> CLOSED {
-    (  $<ReportCollection_tes> <entries> @<Report> * ;
-       rdf:type [ <ReportCollection> ] ?
+<PredicateReport> CLOSED {
+    (  $<PredicateReport_tes> (  schema1:missing_object_namespaces @linkml:String * ;
+          <missing_objects> @linkml:Integer ? ;
+          schema1:missing_subject_namespaces @linkml:String * ;
+          <missing_subjects> @linkml:Integer ? ;
+          <total_number> @linkml:Integer ? ;
+          schema1:uri @linkml:String ?
+       ) ;
+       rdf:type [ <PredicateReport> ] ?
     )
 }
+
+<Report> CLOSED {
+    (  $<Report_tes> (  <dangling_edges> @<EdgeReport> * ;
+          <edges> @<EdgeReport> * ;
+          <nodes> @<NodeReport> * ;
+          <missing_nodes> @<NodeReport> *
+       ) ;
+       rdf:type [ <Report> ] ?
+    )
+}
+
+<SubReport>  (
+    CLOSED {
+       (  $<SubReport_tes> (  schema1:categories @linkml:String * ;
+             schema1:description @linkml:String ? ;
+             schema1:name @linkml:String ? ;
+             schema1:namespaces @linkml:String * ;
+             <total_number> @linkml:Integer ?
+          ) ;
+          rdf:type [ <SubReport> ] ?
+       )
+    } OR @<EdgeReport> OR @<NodeReport>
+)
 
 
