@@ -21,7 +21,7 @@
     },
     {
       "prefix_prefix": "biolink",
-      "prefix_reference": "https://w3id.org/biolink/"
+      "prefix_reference": "https://w3id.org/biolink/vocab/"
     },
     {
       "prefix_prefix": "schema",
@@ -33,7 +33,7 @@
     },
     {
       "prefix_prefix": "example",
-      "prefix_reference": "https://example.org/"
+      "prefix_reference": "http://www.example.org/rdf#"
     }
   ],
   "default_prefix": "monarch_kg_qc_schema",
@@ -295,65 +295,23 @@
       "@type": "TypeDefinition"
     }
   ],
-  "enums": [
-    {
-      "name": "PersonStatus",
-      "definition_uri": "https://w3id.org/monarch-initiative/monarch-kg-qc-schema/PersonStatus",
-      "from_schema": "https://w3id.org/monarch-initiative/monarch-kg-qc-schema",
-      "permissible_values": [
-        {
-          "text": "ALIVE",
-          "description": "the person is living",
-          "meaning": "PATO:0001421"
-        },
-        {
-          "text": "DEAD",
-          "description": "the person is deceased",
-          "meaning": "PATO:0001422"
-        },
-        {
-          "text": "UNKNOWN",
-          "description": "the vital status is not known",
-          "todos": [
-            "map this to an ontology"
-          ]
-        }
-      ]
-    }
-  ],
   "slots": [
     {
-      "name": "id",
-      "definition_uri": "https://w3id.org/monarch-initiative/monarch-kg-qc-schema/id",
-      "description": "A unique identifier for a thing",
+      "name": "categories",
+      "definition_uri": "https://w3id.org/monarch-initiative/monarch-kg-qc-schema/categories",
+      "description": "The categories of the node or edge objects",
       "from_schema": "https://w3id.org/monarch-initiative/monarch-kg-qc-schema",
       "mappings": [
-        "http://schema.org/identifier"
+        "http://schema.org/categories"
       ],
-      "slot_uri": "http://schema.org/identifier",
-      "identifier": true,
-      "owner": "NamedThing",
+      "slot_uri": "http://schema.org/categories",
+      "multivalued": true,
+      "owner": "SubReport",
       "domain_of": [
-        "NamedThing"
-      ],
-      "range": "uriorcurie",
-      "required": true,
-      "@type": "SlotDefinition"
-    },
-    {
-      "name": "name",
-      "definition_uri": "https://w3id.org/monarch-initiative/monarch-kg-qc-schema/name",
-      "description": "A human-readable name for a thing",
-      "from_schema": "https://w3id.org/monarch-initiative/monarch-kg-qc-schema",
-      "mappings": [
-        "http://schema.org/name"
-      ],
-      "slot_uri": "http://schema.org/name",
-      "owner": "NamedThing",
-      "domain_of": [
-        "NamedThing"
+        "SubReport"
       ],
       "range": "string",
+      "pattern": "^\\S+:\\S+",
       "@type": "SlotDefinition"
     },
     {
@@ -365,173 +323,407 @@
         "http://schema.org/description"
       ],
       "slot_uri": "http://schema.org/description",
-      "owner": "NamedThing",
+      "owner": "SubReport",
       "domain_of": [
-        "NamedThing"
+        "SubReport"
       ],
       "range": "string",
       "@type": "SlotDefinition"
     },
     {
-      "name": "primary_email",
-      "definition_uri": "https://w3id.org/monarch-initiative/monarch-kg-qc-schema/primary_email",
-      "description": "The main email address of a person",
+      "name": "missing",
+      "definition_uri": "https://w3id.org/monarch-initiative/monarch-kg-qc-schema/missing",
+      "description": "Number of missing of type in collection",
       "from_schema": "https://w3id.org/monarch-initiative/monarch-kg-qc-schema",
-      "mappings": [
-        "http://schema.org/email"
-      ],
-      "slot_uri": "http://schema.org/email",
-      "owner": "Report",
+      "slot_uri": "https://w3id.org/monarch-initiative/monarch-kg-qc-schema/missing",
+      "owner": "NodeTypeReport",
       "domain_of": [
-        "Report"
-      ],
-      "range": "string",
-      "@type": "SlotDefinition"
-    },
-    {
-      "name": "birth_date",
-      "definition_uri": "https://w3id.org/monarch-initiative/monarch-kg-qc-schema/birth_date",
-      "description": "Date on which a person is born",
-      "from_schema": "https://w3id.org/monarch-initiative/monarch-kg-qc-schema",
-      "mappings": [
-        "http://schema.org/birthDate"
-      ],
-      "slot_uri": "http://schema.org/birthDate",
-      "owner": "Report",
-      "domain_of": [
-        "Report"
-      ],
-      "range": "date",
-      "@type": "SlotDefinition"
-    },
-    {
-      "name": "age_in_years",
-      "definition_uri": "https://w3id.org/monarch-initiative/monarch-kg-qc-schema/age_in_years",
-      "description": "Number of years since birth",
-      "from_schema": "https://w3id.org/monarch-initiative/monarch-kg-qc-schema",
-      "slot_uri": "https://w3id.org/monarch-initiative/monarch-kg-qc-schema/age_in_years",
-      "owner": "Report",
-      "domain_of": [
-        "Report"
+        "EdgeReport",
+        "NodeTypeReport"
       ],
       "range": "integer",
       "@type": "SlotDefinition"
     },
     {
-      "name": "vital_status",
-      "definition_uri": "https://w3id.org/monarch-initiative/monarch-kg-qc-schema/vital_status",
-      "description": "living or dead status",
+      "name": "missing_object_namespaces",
+      "definition_uri": "https://w3id.org/monarch-initiative/monarch-kg-qc-schema/missing_object_namespaces",
+      "description": "Namespaces of missing objects from predicate edges collection",
       "from_schema": "https://w3id.org/monarch-initiative/monarch-kg-qc-schema",
-      "slot_uri": "https://w3id.org/monarch-initiative/monarch-kg-qc-schema/vital_status",
-      "owner": "Report",
-      "domain_of": [
-        "Report"
+      "mappings": [
+        "http://schema.org/missing_object_namespaces"
       ],
-      "range": "PersonStatus",
+      "slot_uri": "http://schema.org/missing_object_namespaces",
+      "multivalued": true,
+      "owner": "PredicateReport",
+      "domain_of": [
+        "PredicateReport"
+      ],
+      "range": "string",
       "@type": "SlotDefinition"
     },
     {
-      "name": "reportCollection__entries",
+      "name": "missing_objects",
+      "definition_uri": "https://w3id.org/monarch-initiative/monarch-kg-qc-schema/missing_objects",
+      "description": "Number of missing objects in edges of predicate collection",
       "from_schema": "https://w3id.org/monarch-initiative/monarch-kg-qc-schema",
-      "slot_uri": "https://w3id.org/monarch-initiative/monarch-kg-qc-schema/entries",
-      "multivalued": true,
-      "alias": "entries",
-      "owner": "ReportCollection",
+      "slot_uri": "https://w3id.org/monarch-initiative/monarch-kg-qc-schema/missing_objects",
+      "owner": "PredicateReport",
       "domain_of": [
-        "ReportCollection"
+        "PredicateReport"
       ],
-      "range": "Report",
+      "range": "integer",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "missing_subject_namespaces",
+      "definition_uri": "https://w3id.org/monarch-initiative/monarch-kg-qc-schema/missing_subject_namespaces",
+      "description": "Namespaces of mission subjects from predicate edges collection",
+      "from_schema": "https://w3id.org/monarch-initiative/monarch-kg-qc-schema",
+      "mappings": [
+        "http://schema.org/missing_subject_namespaces"
+      ],
+      "slot_uri": "http://schema.org/missing_subject_namespaces",
+      "multivalued": true,
+      "owner": "PredicateReport",
+      "domain_of": [
+        "PredicateReport"
+      ],
+      "range": "string",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "missing_subjects",
+      "definition_uri": "https://w3id.org/monarch-initiative/monarch-kg-qc-schema/missing_subjects",
+      "description": "Number of mission subjects in edges of predicate collection",
+      "from_schema": "https://w3id.org/monarch-initiative/monarch-kg-qc-schema",
+      "slot_uri": "https://w3id.org/monarch-initiative/monarch-kg-qc-schema/missing_subjects",
+      "owner": "PredicateReport",
+      "domain_of": [
+        "PredicateReport"
+      ],
+      "range": "integer",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "name",
+      "definition_uri": "https://w3id.org/monarch-initiative/monarch-kg-qc-schema/name",
+      "description": "A human-readable name for a thing",
+      "from_schema": "https://w3id.org/monarch-initiative/monarch-kg-qc-schema",
+      "mappings": [
+        "http://schema.org/name"
+      ],
+      "slot_uri": "http://schema.org/name",
+      "owner": "SubReport",
+      "domain_of": [
+        "SubReport"
+      ],
+      "range": "string",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "namespaces",
+      "definition_uri": "https://w3id.org/monarch-initiative/monarch-kg-qc-schema/namespaces",
+      "description": "The namespaces of the node or edge objects",
+      "from_schema": "https://w3id.org/monarch-initiative/monarch-kg-qc-schema",
+      "mappings": [
+        "http://schema.org/namespaces"
+      ],
+      "slot_uri": "http://schema.org/namespaces",
+      "multivalued": true,
+      "owner": "SubReport",
+      "domain_of": [
+        "SubReport"
+      ],
+      "range": "string",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "node_types",
+      "definition_uri": "https://w3id.org/monarch-initiative/monarch-kg-qc-schema/node_types",
+      "description": "NodeType reports for the edges collection",
+      "from_schema": "https://w3id.org/monarch-initiative/monarch-kg-qc-schema",
+      "mappings": [
+        "http://schema.org/node_types"
+      ],
+      "slot_uri": "http://schema.org/node_types",
+      "multivalued": true,
+      "owner": "EdgeReport",
+      "domain_of": [
+        "EdgeReport"
+      ],
+      "range": "NodeTypeReport",
       "inlined": true,
       "@type": "SlotDefinition"
     },
     {
-      "name": "Report_primary_email",
-      "definition_uri": "https://w3id.org/monarch-initiative/monarch-kg-qc-schema/primary_email",
-      "description": "The main email address of a person",
+      "name": "predicates",
+      "definition_uri": "https://w3id.org/monarch-initiative/monarch-kg-qc-schema/predicates",
+      "description": "Predicate reports for the edges collection",
       "from_schema": "https://w3id.org/monarch-initiative/monarch-kg-qc-schema",
       "mappings": [
-        "http://schema.org/email"
+        "http://schema.org/predicates"
       ],
-      "is_a": "primary_email",
-      "domain": "Report",
-      "slot_uri": "http://schema.org/email",
-      "alias": "primary_email",
+      "slot_uri": "http://schema.org/predicates",
+      "multivalued": true,
+      "owner": "EdgeReport",
+      "domain_of": [
+        "EdgeReport"
+      ],
+      "range": "PredicateReport",
+      "inlined": true,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "taxon",
+      "definition_uri": "https://w3id.org/monarch-initiative/monarch-kg-qc-schema/taxon",
+      "description": "The taxons of the nodes in the collection",
+      "from_schema": "https://w3id.org/monarch-initiative/monarch-kg-qc-schema",
+      "mappings": [
+        "http://schema.org/taxon"
+      ],
+      "slot_uri": "http://schema.org/taxon",
+      "multivalued": true,
+      "owner": "NodeReport",
+      "domain_of": [
+        "NodeReport"
+      ],
+      "range": "string",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "total_number",
+      "definition_uri": "https://w3id.org/monarch-initiative/monarch-kg-qc-schema/total_number",
+      "description": "Total number of edge or node objects",
+      "from_schema": "https://w3id.org/monarch-initiative/monarch-kg-qc-schema",
+      "slot_uri": "https://w3id.org/monarch-initiative/monarch-kg-qc-schema/total_number",
+      "owner": "PredicateReport",
+      "domain_of": [
+        "SubReport",
+        "PredicateReport"
+      ],
+      "range": "integer",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "uri",
+      "definition_uri": "https://w3id.org/monarch-initiative/monarch-kg-qc-schema/uri",
+      "description": "Predicate URI for the group of edges",
+      "from_schema": "https://w3id.org/monarch-initiative/monarch-kg-qc-schema",
+      "mappings": [
+        "http://schema.org/uri"
+      ],
+      "slot_uri": "http://schema.org/uri",
+      "owner": "PredicateReport",
+      "domain_of": [
+        "PredicateReport"
+      ],
+      "range": "string",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "report__dangling_edges",
+      "description": "Represents a report for dangling edges",
+      "from_schema": "https://w3id.org/monarch-initiative/monarch-kg-qc-schema",
+      "slot_uri": "https://w3id.org/monarch-initiative/monarch-kg-qc-schema/dangling_edges",
+      "multivalued": true,
+      "alias": "dangling_edges",
       "owner": "Report",
       "domain_of": [
         "Report"
       ],
-      "is_usage_slot": true,
-      "usage_slot_name": "primary_email",
-      "range": "string",
-      "pattern": "^\\S+@[\\S+\\.]+\\S+",
+      "range": "EdgeReport",
+      "inlined": true,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "report__edges",
+      "description": "Represents a report for edges",
+      "from_schema": "https://w3id.org/monarch-initiative/monarch-kg-qc-schema",
+      "slot_uri": "https://w3id.org/monarch-initiative/monarch-kg-qc-schema/edges",
+      "multivalued": true,
+      "alias": "edges",
+      "owner": "Report",
+      "domain_of": [
+        "Report"
+      ],
+      "range": "EdgeReport",
+      "inlined": true,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "report__nodes",
+      "description": "Represents a report for nodes",
+      "from_schema": "https://w3id.org/monarch-initiative/monarch-kg-qc-schema",
+      "slot_uri": "https://w3id.org/monarch-initiative/monarch-kg-qc-schema/nodes",
+      "multivalued": true,
+      "alias": "nodes",
+      "owner": "Report",
+      "domain_of": [
+        "Report"
+      ],
+      "range": "NodeReport",
+      "inlined": true,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "report__missing_nodes",
+      "description": "Represents a report for missing nodes",
+      "from_schema": "https://w3id.org/monarch-initiative/monarch-kg-qc-schema",
+      "slot_uri": "https://w3id.org/monarch-initiative/monarch-kg-qc-schema/missing_nodes",
+      "multivalued": true,
+      "alias": "missing_nodes",
+      "owner": "Report",
+      "domain_of": [
+        "Report"
+      ],
+      "range": "NodeReport",
+      "inlined": true,
       "@type": "SlotDefinition"
     }
   ],
   "classes": [
     {
-      "name": "NamedThing",
-      "definition_uri": "https://w3id.org/monarch-initiative/monarch-kg-qc-schema/NamedThing",
-      "description": "A generic grouping for any identifiable entity",
-      "from_schema": "https://w3id.org/monarch-initiative/monarch-kg-qc-schema",
-      "mappings": [
-        "schema:Thing"
-      ],
-      "slots": [
-        "id",
-        "name",
-        "description"
-      ],
-      "slot_usage": {},
-      "class_uri": "http://schema.org/Thing",
-      "@type": "ClassDefinition"
-    },
-    {
       "name": "Report",
       "definition_uri": "https://w3id.org/monarch-initiative/monarch-kg-qc-schema/Report",
       "description": "Represents a Report",
       "from_schema": "https://w3id.org/monarch-initiative/monarch-kg-qc-schema",
-      "is_a": "NamedThing",
       "slots": [
-        "id",
-        "name",
-        "description",
-        "Report_primary_email",
-        "birth_date",
-        "age_in_years",
-        "vital_status"
-      ],
-      "slot_usage": {},
-      "class_uri": "https://w3id.org/monarch-initiative/monarch-kg-qc-schema/Report",
-      "@type": "ClassDefinition"
-    },
-    {
-      "name": "ReportCollection",
-      "definition_uri": "https://w3id.org/monarch-initiative/monarch-kg-qc-schema/ReportCollection",
-      "description": "A holder for Report objects",
-      "from_schema": "https://w3id.org/monarch-initiative/monarch-kg-qc-schema",
-      "slots": [
-        "reportCollection__entries"
+        "report__dangling_edges",
+        "report__edges",
+        "report__nodes",
+        "report__missing_nodes"
       ],
       "slot_usage": {},
       "attributes": [
         {
-          "name": "entries",
+          "name": "dangling_edges",
+          "description": "Represents a report for dangling edges",
           "multivalued": true,
-          "range": "Report",
-          "inlined": true,
+          "range": "EdgeReport",
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "edges",
+          "description": "Represents a report for edges",
+          "multivalued": true,
+          "range": "EdgeReport",
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "nodes",
+          "description": "Represents a report for nodes",
+          "multivalued": true,
+          "range": "NodeReport",
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "missing_nodes",
+          "description": "Represents a report for missing nodes",
+          "multivalued": true,
+          "range": "NodeReport",
           "@type": "SlotDefinition"
         }
       ],
-      "class_uri": "https://w3id.org/monarch-initiative/monarch-kg-qc-schema/ReportCollection",
+      "class_uri": "https://w3id.org/monarch-initiative/monarch-kg-qc-schema/Report",
       "tree_root": true,
+      "@type": "ClassDefinition"
+    },
+    {
+      "name": "SubReport",
+      "definition_uri": "https://w3id.org/monarch-initiative/monarch-kg-qc-schema/SubReport",
+      "description": "Represents a report section for a knowledge graph of entity type",
+      "from_schema": "https://w3id.org/monarch-initiative/monarch-kg-qc-schema",
+      "slots": [
+        "categories",
+        "description",
+        "name",
+        "namespaces",
+        "total_number"
+      ],
+      "slot_usage": {},
+      "class_uri": "https://w3id.org/monarch-initiative/monarch-kg-qc-schema/SubReport",
+      "@type": "ClassDefinition"
+    },
+    {
+      "name": "EdgeReport",
+      "definition_uri": "https://w3id.org/monarch-initiative/monarch-kg-qc-schema/EdgeReport",
+      "description": "Represents a sub report for a collection of edges",
+      "from_schema": "https://w3id.org/monarch-initiative/monarch-kg-qc-schema",
+      "is_a": "SubReport",
+      "slots": [
+        "categories",
+        "description",
+        "name",
+        "namespaces",
+        "total_number",
+        "missing",
+        "node_types",
+        "predicates"
+      ],
+      "slot_usage": {},
+      "class_uri": "https://w3id.org/monarch-initiative/monarch-kg-qc-schema/EdgeReport",
+      "@type": "ClassDefinition"
+    },
+    {
+      "name": "NodeReport",
+      "definition_uri": "https://w3id.org/monarch-initiative/monarch-kg-qc-schema/NodeReport",
+      "description": "Represents a sub report for a collection of nodes",
+      "from_schema": "https://w3id.org/monarch-initiative/monarch-kg-qc-schema",
+      "is_a": "SubReport",
+      "slots": [
+        "categories",
+        "description",
+        "name",
+        "namespaces",
+        "total_number",
+        "taxon"
+      ],
+      "slot_usage": {},
+      "class_uri": "https://w3id.org/monarch-initiative/monarch-kg-qc-schema/NodeReport",
+      "@type": "ClassDefinition"
+    },
+    {
+      "name": "NodeTypeReport",
+      "definition_uri": "https://w3id.org/monarch-initiative/monarch-kg-qc-schema/NodeTypeReport",
+      "description": "Represents a report for a collection of nodes",
+      "from_schema": "https://w3id.org/monarch-initiative/monarch-kg-qc-schema",
+      "is_a": "NodeReport",
+      "slots": [
+        "categories",
+        "description",
+        "name",
+        "namespaces",
+        "total_number",
+        "taxon",
+        "missing"
+      ],
+      "slot_usage": {},
+      "class_uri": "https://w3id.org/monarch-initiative/monarch-kg-qc-schema/NodeTypeReport",
+      "@type": "ClassDefinition"
+    },
+    {
+      "name": "PredicateReport",
+      "definition_uri": "https://w3id.org/monarch-initiative/monarch-kg-qc-schema/PredicateReport",
+      "description": "Represents a report for predicates of a collection of edges",
+      "from_schema": "https://w3id.org/monarch-initiative/monarch-kg-qc-schema",
+      "slots": [
+        "missing_object_namespaces",
+        "missing_objects",
+        "missing_subject_namespaces",
+        "missing_subjects",
+        "total_number",
+        "uri"
+      ],
+      "slot_usage": {},
+      "class_uri": "https://w3id.org/monarch-initiative/monarch-kg-qc-schema/PredicateReport",
       "@type": "ClassDefinition"
     }
   ],
   "metamodel_version": "1.7.0",
   "source_file": "monarch_kg_qc_schema.yaml",
-  "source_file_date": "2023-06-20T07:52:18",
-  "source_file_size": 2278,
-  "generation_date": "2023-06-20T07:53:28",
+  "source_file_date": "2023-07-25T09:56:36",
+  "source_file_size": 5200,
+  "generation_date": "2023-07-25T10:56:41",
   "@type": "SchemaDefinition",
   "@context": [
     "project/jsonld/monarch_kg_qc_schema.context.jsonld",
