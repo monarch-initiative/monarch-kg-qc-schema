@@ -56,11 +56,6 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://monarch-initiative.github.io/monarch-kg-qc-schema/NamedThing/</loc>
-         <lastmod>2023-07-25</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
          <loc>https://monarch-initiative.github.io/monarch-kg-qc-schema/Ncname/</loc>
          <lastmod>2023-07-25</lastmod>
          <changefreq>daily</changefreq>
@@ -92,11 +87,6 @@
     </url>
     <url>
          <loc>https://monarch-initiative.github.io/monarch-kg-qc-schema/Report/</loc>
-         <lastmod>2023-07-25</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://monarch-initiative.github.io/monarch-kg-qc-schema/ReportCollection/</loc>
          <lastmod>2023-07-25</lastmod>
          <changefreq>daily</changefreq>
     </url>
@@ -147,16 +137,6 @@
     </url>
     <url>
          <loc>https://monarch-initiative.github.io/monarch-kg-qc-schema/edges/</loc>
-         <lastmod>2023-07-25</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://monarch-initiative.github.io/monarch-kg-qc-schema/entries/</loc>
-         <lastmod>2023-07-25</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://monarch-initiative.github.io/monarch-kg-qc-schema/id/</loc>
          <lastmod>2023-07-25</lastmod>
          <changefreq>daily</changefreq>
     </url>
