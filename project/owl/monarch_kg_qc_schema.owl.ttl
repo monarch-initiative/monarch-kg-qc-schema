@@ -26,8 +26,8 @@ monarch_kg_qc_schema:Report a owl:Class,
         linkml:ClassDefinition ;
     rdfs:label "Report" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:allValuesFrom monarch_kg_qc_schema:NodeReport ;
-            owl:onProperty monarch_kg_qc_schema:nodes ],
+            owl:allValuesFrom monarch_kg_qc_schema:EdgeReport ;
+            owl:onProperty monarch_kg_qc_schema:edges ],
         [ a owl:Restriction ;
             owl:allValuesFrom monarch_kg_qc_schema:NodeReport ;
             owl:onProperty monarch_kg_qc_schema:missing_nodes ],
@@ -35,8 +35,8 @@ monarch_kg_qc_schema:Report a owl:Class,
             owl:allValuesFrom monarch_kg_qc_schema:EdgeReport ;
             owl:onProperty monarch_kg_qc_schema:dangling_edges ],
         [ a owl:Restriction ;
-            owl:allValuesFrom monarch_kg_qc_schema:EdgeReport ;
-            owl:onProperty monarch_kg_qc_schema:edges ] ;
+            owl:allValuesFrom monarch_kg_qc_schema:NodeReport ;
+            owl:onProperty monarch_kg_qc_schema:nodes ] ;
     skos:definition "Represents a Report" .
 
 monarch_kg_qc_schema:dangling_edges a owl:ObjectProperty,
@@ -176,22 +176,22 @@ monarch_kg_qc_schema:PredicateReport a owl:Class,
             owl:onProperty monarch_kg_qc_schema:missing_subjects ],
         [ a owl:Restriction ;
             owl:maxQualifiedCardinality 1 ;
-            owl:onClass linkml:String ;
-            owl:onProperty schema1:uri ],
+            owl:onClass linkml:Integer ;
+            owl:onProperty monarch_kg_qc_schema:missing_objects ],
         [ a owl:Restriction ;
             owl:allValuesFrom linkml:String ;
             owl:onProperty schema1:missing_object_namespaces ],
+        [ a owl:Restriction ;
+            owl:maxQualifiedCardinality 1 ;
+            owl:onClass linkml:Integer ;
+            owl:onProperty monarch_kg_qc_schema:total_number ],
         [ a owl:Restriction ;
             owl:allValuesFrom linkml:String ;
             owl:onProperty schema1:missing_subject_namespaces ],
         [ a owl:Restriction ;
             owl:maxQualifiedCardinality 1 ;
-            owl:onClass linkml:Integer ;
-            owl:onProperty monarch_kg_qc_schema:missing_objects ],
-        [ a owl:Restriction ;
-            owl:maxQualifiedCardinality 1 ;
-            owl:onClass linkml:Integer ;
-            owl:onProperty monarch_kg_qc_schema:total_number ] ;
+            owl:onClass linkml:String ;
+            owl:onProperty schema1:uri ] ;
     skos:definition "Represents a report for predicates of a collection of edges" .
 
 monarch_kg_qc_schema:SubReport a owl:Class,
@@ -200,7 +200,7 @@ monarch_kg_qc_schema:SubReport a owl:Class,
     rdfs:subClassOf [ a owl:Restriction ;
             owl:maxQualifiedCardinality 1 ;
             owl:onClass linkml:String ;
-            owl:onProperty schema1:name ],
+            owl:onProperty schema1:description ],
         [ a owl:Restriction ;
             owl:allValuesFrom linkml:String ;
             owl:onProperty schema1:namespaces ],
@@ -209,27 +209,27 @@ monarch_kg_qc_schema:SubReport a owl:Class,
             owl:onProperty schema1:categories ],
         [ a owl:Restriction ;
             owl:maxQualifiedCardinality 1 ;
-            owl:onClass linkml:Integer ;
-            owl:onProperty monarch_kg_qc_schema:total_number ],
+            owl:onClass linkml:String ;
+            owl:onProperty schema1:name ],
         [ a owl:Restriction ;
             owl:maxQualifiedCardinality 1 ;
-            owl:onClass linkml:String ;
-            owl:onProperty schema1:description ] ;
+            owl:onClass linkml:Integer ;
+            owl:onProperty monarch_kg_qc_schema:total_number ] ;
     skos:definition "Represents a report section for a knowledge graph of entity type" .
 
 monarch_kg_qc_schema:EdgeReport a owl:Class,
         linkml:ClassDefinition ;
     rdfs:label "EdgeReport" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:allValuesFrom monarch_kg_qc_schema:PredicateReport ;
-            owl:onProperty schema1:predicates ],
+            owl:maxQualifiedCardinality 1 ;
+            owl:onClass linkml:Integer ;
+            owl:onProperty monarch_kg_qc_schema:missing ],
         [ a owl:Restriction ;
             owl:allValuesFrom monarch_kg_qc_schema:NodeTypeReport ;
             owl:onProperty schema1:node_types ],
         [ a owl:Restriction ;
-            owl:maxQualifiedCardinality 1 ;
-            owl:onClass linkml:Integer ;
-            owl:onProperty monarch_kg_qc_schema:missing ],
+            owl:allValuesFrom monarch_kg_qc_schema:PredicateReport ;
+            owl:onProperty schema1:predicates ],
         monarch_kg_qc_schema:SubReport ;
     skos:definition "Represents a sub report for a collection of edges" .
 

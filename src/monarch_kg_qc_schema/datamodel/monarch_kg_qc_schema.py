@@ -1,5 +1,5 @@
 # Auto generated from monarch_kg_qc_schema.yaml by pythongen.py version: 0.9.0
-# Generation date: 2023-07-25T10:42:02
+# Generation date: 2023-07-25T10:56:44
 # Schema: monarch-kg-qc-schema
 #
 # id: https://w3id.org/monarch-initiative/monarch-kg-qc-schema

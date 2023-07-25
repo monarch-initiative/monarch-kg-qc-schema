@@ -8,12 +8,7 @@ monarch_kg_qc_schema:Report a sh:NodeShape ;
     sh:closed true ;
     sh:description "Represents a Report" ;
     sh:ignoredProperties ( rdf:type ) ;
-    sh:property [ sh:class monarch_kg_qc_schema:NodeReport ;
-            sh:description "Represents a report for nodes" ;
-            sh:nodeKind sh:BlankNode ;
-            sh:order 2 ;
-            sh:path monarch_kg_qc_schema:nodes ],
-        [ sh:class monarch_kg_qc_schema:EdgeReport ;
+    sh:property [ sh:class monarch_kg_qc_schema:EdgeReport ;
             sh:description "Represents a report for edges" ;
             sh:nodeKind sh:BlankNode ;
             sh:order 1 ;
@@ -23,6 +18,11 @@ monarch_kg_qc_schema:Report a sh:NodeShape ;
             sh:nodeKind sh:BlankNode ;
             sh:order 0 ;
             sh:path monarch_kg_qc_schema:dangling_edges ],
+        [ sh:class monarch_kg_qc_schema:NodeReport ;
+            sh:description "Represents a report for nodes" ;
+            sh:nodeKind sh:BlankNode ;
+            sh:order 2 ;
+            sh:path monarch_kg_qc_schema:nodes ],
         [ sh:class monarch_kg_qc_schema:NodeReport ;
             sh:description "Represents a report for missing nodes" ;
             sh:nodeKind sh:BlankNode ;
@@ -34,57 +34,57 @@ monarch_kg_qc_schema:SubReport a sh:NodeShape ;
     sh:closed true ;
     sh:description "Represents a report section for a knowledge graph of entity type" ;
     sh:ignoredProperties ( rdf:type ) ;
-    sh:property [ sh:description "The categories of the node or edge objects" ;
-            sh:order 0 ;
-            sh:path schema1:categories ;
-            sh:pattern "^\\S+:\\S+" ],
-        [ sh:description "A human-readable name for a thing" ;
-            sh:maxCount 1 ;
-            sh:order 2 ;
-            sh:path schema1:name ],
-        [ sh:description "The namespaces of the node or edge objects" ;
-            sh:order 3 ;
-            sh:path schema1:namespaces ],
-        [ sh:description "Total number of edge or node objects" ;
+    sh:property [ sh:description "Total number of edge or node objects" ;
             sh:maxCount 1 ;
             sh:order 4 ;
             sh:path monarch_kg_qc_schema:total_number ],
+        [ sh:description "The categories of the node or edge objects" ;
+            sh:order 0 ;
+            sh:path schema1:categories ;
+            sh:pattern "^\\S+:\\S+" ],
         [ sh:description "A human-readable description for a thing" ;
             sh:maxCount 1 ;
             sh:order 1 ;
-            sh:path schema1:description ] ;
+            sh:path schema1:description ],
+        [ sh:description "The namespaces of the node or edge objects" ;
+            sh:order 3 ;
+            sh:path schema1:namespaces ],
+        [ sh:description "A human-readable name for a thing" ;
+            sh:maxCount 1 ;
+            sh:order 2 ;
+            sh:path schema1:name ] ;
     sh:targetClass monarch_kg_qc_schema:SubReport .
 
 monarch_kg_qc_schema:NodeTypeReport a sh:NodeShape ;
     sh:closed true ;
     sh:description "Represents a report for a collection of nodes" ;
     sh:ignoredProperties ( rdf:type ) ;
-    sh:property [ sh:description "The categories of the node or edge objects" ;
-            sh:order 2 ;
-            sh:path schema1:categories ;
-            sh:pattern "^\\S+:\\S+" ],
-        [ sh:description "Number of missing of type in collection" ;
-            sh:maxCount 1 ;
-            sh:order 0 ;
-            sh:path monarch_kg_qc_schema:missing ],
-        [ sh:description "The taxons of the nodes in the collection" ;
-            sh:order 1 ;
-            sh:path schema1:taxon ],
-        [ sh:description "A human-readable name for a thing" ;
+    sh:property [ sh:description "A human-readable name for a thing" ;
             sh:maxCount 1 ;
             sh:order 4 ;
             sh:path schema1:name ],
-        [ sh:description "The namespaces of the node or edge objects" ;
-            sh:order 5 ;
-            sh:path schema1:namespaces ],
+        [ sh:description "The taxons of the nodes in the collection" ;
+            sh:order 1 ;
+            sh:path schema1:taxon ],
+        [ sh:description "Total number of edge or node objects" ;
+            sh:maxCount 1 ;
+            sh:order 6 ;
+            sh:path monarch_kg_qc_schema:total_number ],
         [ sh:description "A human-readable description for a thing" ;
             sh:maxCount 1 ;
             sh:order 3 ;
             sh:path schema1:description ],
-        [ sh:description "Total number of edge or node objects" ;
+        [ sh:description "The categories of the node or edge objects" ;
+            sh:order 2 ;
+            sh:path schema1:categories ;
+            sh:pattern "^\\S+:\\S+" ],
+        [ sh:description "The namespaces of the node or edge objects" ;
+            sh:order 5 ;
+            sh:path schema1:namespaces ],
+        [ sh:description "Number of missing of type in collection" ;
             sh:maxCount 1 ;
-            sh:order 6 ;
-            sh:path monarch_kg_qc_schema:total_number ] ;
+            sh:order 0 ;
+            sh:path monarch_kg_qc_schema:missing ] ;
     sh:targetClass monarch_kg_qc_schema:NodeTypeReport .
 
 monarch_kg_qc_schema:PredicateReport a sh:NodeShape ;
@@ -98,6 +98,10 @@ monarch_kg_qc_schema:PredicateReport a sh:NodeShape ;
             sh:maxCount 1 ;
             sh:order 4 ;
             sh:path monarch_kg_qc_schema:total_number ],
+        [ sh:description "Number of missing objects in edges of predicate collection" ;
+            sh:maxCount 1 ;
+            sh:order 1 ;
+            sh:path monarch_kg_qc_schema:missing_objects ],
         [ sh:description "Predicate URI for the group of edges" ;
             sh:maxCount 1 ;
             sh:order 5 ;
@@ -105,10 +109,6 @@ monarch_kg_qc_schema:PredicateReport a sh:NodeShape ;
         [ sh:description "Namespaces of mission subjects from predicate edges collection" ;
             sh:order 2 ;
             sh:path schema1:missing_subject_namespaces ],
-        [ sh:description "Number of missing objects in edges of predicate collection" ;
-            sh:maxCount 1 ;
-            sh:order 1 ;
-            sh:path monarch_kg_qc_schema:missing_objects ],
         [ sh:description "Number of mission subjects in edges of predicate collection" ;
             sh:maxCount 1 ;
             sh:order 3 ;
@@ -119,39 +119,39 @@ monarch_kg_qc_schema:EdgeReport a sh:NodeShape ;
     sh:closed true ;
     sh:description "Represents a sub report for a collection of edges" ;
     sh:ignoredProperties ( rdf:type ) ;
-    sh:property [ sh:description "Total number of edge or node objects" ;
-            sh:maxCount 1 ;
-            sh:order 7 ;
-            sh:path monarch_kg_qc_schema:total_number ],
+    sh:property [ sh:class monarch_kg_qc_schema:NodeTypeReport ;
+            sh:description "NodeType reports for the edges collection" ;
+            sh:nodeKind sh:BlankNode ;
+            sh:order 1 ;
+            sh:path schema1:node_types ],
+        [ sh:description "The categories of the node or edge objects" ;
+            sh:order 3 ;
+            sh:path schema1:categories ;
+            sh:pattern "^\\S+:\\S+" ],
         [ sh:class monarch_kg_qc_schema:PredicateReport ;
             sh:description "Predicate reports for the edges collection" ;
             sh:nodeKind sh:BlankNode ;
             sh:order 2 ;
             sh:path schema1:predicates ],
-        [ sh:description "The categories of the node or edge objects" ;
-            sh:order 3 ;
-            sh:path schema1:categories ;
-            sh:pattern "^\\S+:\\S+" ],
+        [ sh:description "Total number of edge or node objects" ;
+            sh:maxCount 1 ;
+            sh:order 7 ;
+            sh:path monarch_kg_qc_schema:total_number ],
+        [ sh:description "The namespaces of the node or edge objects" ;
+            sh:order 6 ;
+            sh:path schema1:namespaces ],
         [ sh:description "Number of missing of type in collection" ;
             sh:maxCount 1 ;
             sh:order 0 ;
             sh:path monarch_kg_qc_schema:missing ],
-        [ sh:class monarch_kg_qc_schema:NodeTypeReport ;
-            sh:description "NodeType reports for the edges collection" ;
-            sh:nodeKind sh:BlankNode ;
-            sh:order 1 ;
-            sh:path schema1:node_types ],
-        [ sh:description "The namespaces of the node or edge objects" ;
-            sh:order 6 ;
-            sh:path schema1:namespaces ],
-        [ sh:description "A human-readable description for a thing" ;
-            sh:maxCount 1 ;
-            sh:order 4 ;
-            sh:path schema1:description ],
         [ sh:description "A human-readable name for a thing" ;
             sh:maxCount 1 ;
             sh:order 5 ;
-            sh:path schema1:name ] ;
+            sh:path schema1:name ],
+        [ sh:description "A human-readable description for a thing" ;
+            sh:maxCount 1 ;
+            sh:order 4 ;
+            sh:path schema1:description ] ;
     sh:targetClass monarch_kg_qc_schema:EdgeReport .
 
 monarch_kg_qc_schema:NodeReport a sh:NodeShape ;
@@ -162,23 +162,23 @@ monarch_kg_qc_schema:NodeReport a sh:NodeShape ;
             sh:maxCount 1 ;
             sh:order 5 ;
             sh:path monarch_kg_qc_schema:total_number ],
-        [ sh:description "The taxons of the nodes in the collection" ;
-            sh:order 0 ;
-            sh:path schema1:taxon ],
+        [ sh:description "The categories of the node or edge objects" ;
+            sh:order 1 ;
+            sh:path schema1:categories ;
+            sh:pattern "^\\S+:\\S+" ],
         [ sh:description "A human-readable name for a thing" ;
             sh:maxCount 1 ;
             sh:order 3 ;
             sh:path schema1:name ],
+        [ sh:description "The namespaces of the node or edge objects" ;
+            sh:order 4 ;
+            sh:path schema1:namespaces ],
         [ sh:description "A human-readable description for a thing" ;
             sh:maxCount 1 ;
             sh:order 2 ;
             sh:path schema1:description ],
-        [ sh:description "The namespaces of the node or edge objects" ;
-            sh:order 4 ;
-            sh:path schema1:namespaces ],
-        [ sh:description "The categories of the node or edge objects" ;
-            sh:order 1 ;
-            sh:path schema1:categories ;
-            sh:pattern "^\\S+:\\S+" ] ;
+        [ sh:description "The taxons of the nodes in the collection" ;
+            sh:order 0 ;
+            sh:path schema1:taxon ] ;
     sh:targetClass monarch_kg_qc_schema:NodeReport .
 
