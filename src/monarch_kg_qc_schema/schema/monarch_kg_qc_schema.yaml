@@ -22,34 +22,58 @@ imports:
   - linkml:types
 
 classes:
-  NamedThing:
-    description: >-
-      A generic grouping for any identifiable entity
-    slots:
-      - id
-      - name
-      - description
-    class_uri: schema:Thing
-
+#  NamedThing:
+#    description: >-
+#      A generic grouping for any identifiable entity
+#    slots:
+#      - id
+#      - name
+#      - description
+#    class_uri: schema:Thing
+#
   Report:
+    tree_root: true
     description: >-
       Represents a Report
-    slots:
-      - dangling_edges
-      - edges
-      - nodes
+    attributes:
+      dangling_edges:
+        description: >-
+          Represents a report for dangling edges
+        range: EdgeReport
+        multivalued: true
+      edges:
+        description: >-
+          Represents a report for edges
+        range: EdgeReport
+        multivalued: true
+      nodes:
+        description: >-
+          Represents a report for nodes
+        range: NodeReport
+        multivalued: true
+      missing_nodes:
+        description: >-
+          Represents a report for missing nodes
+        range: NodeReport
+        multivalued: true
+#    slot_usage:
+#      - dangling_edges
+#      - edges
+#      - nodes
 
   SubReport:
-    is_a: NamedThing
+#    is_a: NamedThing
     description: >-
       Represents a report section for a knowledge graph of entity type
     slots:
       - categories
+      - description
+      - name
       - namespaces
       - total_number
-    slot_usage:
-      categories:
-        pattern: "^\\S+:\\S+"
+#    slot_usage:
+#      categories:
+#        pattern: "^\\S+:\\S+"
 
   EdgeReport:
     is_a: SubReport
@@ -75,7 +99,7 @@ classes:
       - missing
 
   PredicateReport:
-    is_a: Report
+#    is_a: Report
     description: >-
       Represents a report for predicates of a collection of edges
     slots:
@@ -85,42 +109,45 @@ classes:
       - missing_subjects
       - total_number
       - uri
-
-  ReportCollection:
-    tree_root: true
-    description: >-
-      A holder for Report objects
-    attributes:
-      entries:
-        description: >-
-          A report within the collection
-        range: Report
-        multivalued: true
-        inlined: true
-
+#  Container:
+#    tree_root: true
+#    description: >-
+#      A holder for Report objects
+#    attributes:
+#      reports:
+#        description: >-
+#          A report within the collection
+#        range: Report
+#        multivalued: true
+#        inlined: true
 
 slots:
-  dangling_edges:
-    slot_uri: schema:dangling_edges
-    range: SubReport
-    description: An EdgeReport for dangling edges in the knowledge graph
-  edges:
-    slot_uri: schema:edges
-    range: EdgeReport
-    description: An EdgeReport for edges in the knowledge graph
-  nodes:
-    slot_uri: schema:nodes
-    range: NodeReport
-    description: A NodeReport for nodes in the knowledge graph
+#  dangling_edges:
+#    slot_uri: schema:dangling_edges
+#    range: SubReport
+#    description: An EdgeReport for dangling edges in the knowledge graph
+#    multivalued: true
+#  edges:
+#    slot_uri: schema:edges
+#    range: EdgeReport
+#    description: An EdgeReport for edges in the knowledge graph
+#    multivalued: true
+#  nodes:
+#    slot_uri: schema:nodes
+#    range: NodeReport
+#    description: A NodeReport for nodes in the knowledge graph
+#    multivalued: true
 
-  id:
-    identifier: true
-    slot_uri: schema:identifier
-    range: uriorcurie
-    description: A unique identifier for a thing
+#  id:
+#    identifier: true
+#    slot_uri: schema:identifier
+#    range: uriorcurie
+#    description: A unique identifier for a thing
   categories:
     slot_uri: schema:categories
     description: The categories of the node or edge objects
+    multivalued: true
+    pattern: "^\\S+:\\S+"
   description:
     slot_uri: schema:description
     description: A human-readable description for a thing
@@ -130,12 +157,14 @@ slots:
   missing_object_namespaces:
     slot_uri: schema:missing_object_namespaces
     description: Namespaces of missing objects from predicate edges collection
+    multivalued: true
   missing_objects:
     range: integer
     description: Number of missing objects in edges of predicate collection
   missing_subject_namespaces:
     slot_uri: schema:missing_subject_namespaces
     description: Namespaces of mission subjects from predicate edges collection
+    multivalued: true
   missing_subjects:
     range: integer
     description: Number of mission subjects in edges of predicate collection
@@ -145,17 +174,21 @@ slots:
   namespaces:
     slot_uri: schema:namespaces
     description: The namespaces of the node or edge objects
+    multivalued: true
   node_types:
     slot_uri: schema:node_types
     range: NodeTypeReport
     description: NodeType reports for the edges collection
+    multivalued: true
   predicates:
     slot_uri: schema:predicates
     range: PredicateReport
     description: Predicate reports for the edges collection
+    multivalued: true
   taxon:
     slot_uri: schema:taxon
     description: The taxons of the nodes in the collection
+    multivalued: true
   total_number:
     range: integer
     description: Total number of edge or node objects
