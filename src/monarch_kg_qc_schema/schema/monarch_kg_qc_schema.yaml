@@ -22,15 +22,7 @@ imports:
   - linkml:types
 
 classes:
-#  NamedThing:
-#    description: >-
-#      A generic grouping for any identifiable entity
-#    slots:
-#      - id
-#      - name
-#      - description
-#    class_uri: schema:Thing
-#
+
   Report:
     tree_root: true
     description: >-
@@ -38,47 +30,37 @@ classes:
     attributes:
       dangling_edges:
         description: >-
-          Represents a report for dangling edges
+          Report summarizing knowledge graph dangling edges
         range: EdgeReport
-        multivalued: true
       edges:
         description: >-
-          Represents a report for edges
+          Report summarizing knowledge graph edges
         range: EdgeReport
-        multivalued: true
+        required: true
       nodes:
         description: >-
-          Represents a report for nodes
+          Report summarizing knowledge graph nodes
         range: NodeReport
-        multivalued: true
+        required: true
       missing_nodes:
         description: >-
-          Represents a report for missing nodes
+          Report summarizing knowledge graph missing nodes
         range: NodeReport
-        multivalued: true
-#    slot_usage:
-#      - dangling_edges
-#      - edges
-#      - nodes
 
   SubReport:
-#    is_a: NamedThing
     description: >-
-      Represents a report section for a knowledge graph of entity type
+      An abstract report section for a knowledge graph
     slots:
       - categories
       - description
       - name
       - namespaces
       - total_number
-#    slot_usage:
-#      categories:
-#        pattern: "^\\S+:\\S+"
 
   EdgeReport:
     is_a: SubReport
     description: >-
-      Represents a sub report for a collection of edges
+      A sub report summarizing a collection of edges
     slots:
       - missing
       - node_types
@@ -87,21 +69,20 @@ classes:
   NodeReport:
     is_a: SubReport
     description: >-
-      Represents a sub report for a collection of nodes
+      A sub report summarizing a collection of nodes
     slots:
       - taxon
 
   NodeTypeReport:
     is_a: NodeReport
     description: >-
-      Represents a report for a collection of nodes
+      A sub report summarizing the types of a collection of nodes
     slots:
       - missing
 
   PredicateReport:
-#    is_a: Report
     description: >-
-      Represents a report for predicates of a collection of edges
+      A sub report summarizing the predicates of a collection
     slots:
       - missing_object_namespaces
       - missing_objects
@@ -122,27 +103,6 @@ classes:
 #        inlined: true
 
 slots:
-#  dangling_edges:
-#    slot_uri: schema:dangling_edges
-#    range: SubReport
-#    description: An EdgeReport for dangling edges in the knowledge graph
-#    multivalued: true
-#  edges:
-#    slot_uri: schema:edges
-#    range: EdgeReport
-#    description: An EdgeReport for edges in the knowledge graph
-#    multivalued: true
-#  nodes:
-#    slot_uri: schema:nodes
-#    range: NodeReport
-#    description: A NodeReport for nodes in the knowledge graph
-#    multivalued: true
-
-#  id:
-#    identifier: true
-#    slot_uri: schema:identifier
-#    range: uriorcurie
-#    description: A unique identifier for a thing
   categories:
     slot_uri: schema:categories
     description: The categories of the node or edge objects

@@ -31,16 +31,16 @@ class Report(ConfiguredBaseModel):
     """
     Represents a Report
     """
-    dangling_edges: Optional[List[EdgeReport]] = Field(default_factory=list, description="""Represents a report for dangling edges""")
-    edges: Optional[List[EdgeReport]] = Field(default_factory=list, description="""Represents a report for edges""")
-    nodes: Optional[List[NodeReport]] = Field(default_factory=list, description="""Represents a report for nodes""")
-    missing_nodes: Optional[List[NodeReport]] = Field(default_factory=list, description="""Represents a report for missing nodes""")
+    dangling_edges: Optional[EdgeReport] = Field(None, description="""Report summarizing knowledge graph dangling edges""")
+    edges: EdgeReport = Field(..., description="""Report summarizing knowledge graph edges""")
+    nodes: NodeReport = Field(..., description="""Report summarizing knowledge graph nodes""")
+    missing_nodes: Optional[NodeReport] = Field(None, description="""Report summarizing knowledge graph missing nodes""")
     
 
 
 class SubReport(ConfiguredBaseModel):
     """
-    Represents a report section for a knowledge graph of entity type
+    An abstract report section for a knowledge graph
     """
     categories: Optional[List[str]] = Field(default_factory=list, description="""The categories of the node or edge objects""")
     description: Optional[str] = Field(None, description="""A human-readable description for a thing""")
@@ -52,7 +52,7 @@ class SubReport(ConfiguredBaseModel):
 
 class EdgeReport(SubReport):
     """
-    Represents a sub report for a collection of edges
+    A sub report summarizing a collection of edges
     """
     missing: Optional[int] = Field(None, description="""Number of missing of type in collection""")
     node_types: Optional[List[NodeTypeReport]] = Field(default_factory=list, description="""NodeType reports for the edges collection""")
@@ -67,7 +67,7 @@ class EdgeReport(SubReport):
 
 class NodeReport(SubReport):
     """
-    Represents a sub report for a collection of nodes
+    A sub report summarizing a collection of nodes
     """
     taxon: Optional[List[str]] = Field(default_factory=list, description="""The taxons of the nodes in the collection""")
     categories: Optional[List[str]] = Field(default_factory=list, description="""The categories of the node or edge objects""")
@@ -80,7 +80,7 @@ class NodeReport(SubReport):
 
 class NodeTypeReport(NodeReport):
     """
-    Represents a report for a collection of nodes
+    A sub report summarizing the types of a collection of nodes
     """
     missing: Optional[int] = Field(None, description="""Number of missing of type in collection""")
     taxon: Optional[List[str]] = Field(default_factory=list, description="""The taxons of the nodes in the collection""")
@@ -94,7 +94,7 @@ class NodeTypeReport(NodeReport):
 
 class PredicateReport(ConfiguredBaseModel):
     """
-    Represents a report for predicates of a collection of edges
+    A sub report summarizing the predicates of a collection
     """
     missing_object_namespaces: Optional[List[str]] = Field(default_factory=list, description="""Namespaces of missing objects from predicate edges collection""")
     missing_objects: Optional[int] = Field(None, description="""Number of missing objects in edges of predicate collection""")
