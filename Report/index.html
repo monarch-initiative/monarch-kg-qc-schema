@@ -231,26 +231,26 @@
 <tbody>
 <tr>
 <td><a href="../dangling_edges/">dangling_edges</a></td>
-<td>0..* <br/> <a href="../EdgeReport/">EdgeReport</a></td>
-<td>Represents a report for dangling edges</td>
+<td>0..1 <br/> <a href="../EdgeReport/">EdgeReport</a></td>
+<td>Report summarizing knowledge graph dangling edges</td>
 <td>direct</td>
 </tr>
 <tr>
 <td><a href="../edges/">edges</a></td>
-<td>0..* <br/> <a href="../EdgeReport/">EdgeReport</a></td>
-<td>Represents a report for edges</td>
+<td>1..1 <br/> <a href="../EdgeReport/">EdgeReport</a></td>
+<td>Report summarizing knowledge graph edges</td>
 <td>direct</td>
 </tr>
 <tr>
 <td><a href="../nodes/">nodes</a></td>
-<td>0..* <br/> <a href="../NodeReport/">NodeReport</a></td>
-<td>Represents a report for nodes</td>
+<td>1..1 <br/> <a href="../NodeReport/">NodeReport</a></td>
+<td>Report summarizing knowledge graph nodes</td>
 <td>direct</td>
 </tr>
 <tr>
 <td><a href="../missing_nodes/">missing_nodes</a></td>
-<td>0..* <br/> <a href="../NodeReport/">NodeReport</a></td>
-<td>Represents a report for missing nodes</td>
+<td>0..1 <br/> <a href="../NodeReport/">NodeReport</a></td>
+<td>Report summarizing knowledge graph missing nodes</td>
 <td>direct</td>
 </tr>
 </tbody>
@@ -289,31 +289,29 @@ from_schema: https://w3id.org/monarch-initiative/monarch-kg-qc-schema
 attributes:
   dangling_edges:
     name: dangling_edges
-    description: Represents a report for dangling edges
+    description: Report summarizing knowledge graph dangling edges
     from_schema: https://w3id.org/monarch-initiative/monarch-kg-qc-schema
     rank: 1000
-    multivalued: true
     range: EdgeReport
   edges:
     name: edges
-    description: Represents a report for edges
+    description: Report summarizing knowledge graph edges
     from_schema: https://w3id.org/monarch-initiative/monarch-kg-qc-schema
     rank: 1000
-    multivalued: true
     range: EdgeReport
+    required: true
   nodes:
     name: nodes
-    description: Represents a report for nodes
+    description: Report summarizing knowledge graph nodes
     from_schema: https://w3id.org/monarch-initiative/monarch-kg-qc-schema
     rank: 1000
-    multivalued: true
     range: NodeReport
+    required: true
   missing_nodes:
     name: missing_nodes
-    description: Represents a report for missing nodes
+    description: Report summarizing knowledge graph missing nodes
     from_schema: https://w3id.org/monarch-initiative/monarch-kg-qc-schema
     rank: 1000
-    multivalued: true
     range: NodeReport
 tree_root: true
 
@@ -327,10 +325,9 @@ from_schema: https://w3id.org/monarch-initiative/monarch-kg-qc-schema
 attributes:
   dangling_edges:
     name: dangling_edges
-    description: Represents a report for dangling edges
+    description: Report summarizing knowledge graph dangling edges
     from_schema: https://w3id.org/monarch-initiative/monarch-kg-qc-schema
     rank: 1000
-    multivalued: true
     alias: dangling_edges
     owner: Report
     domain_of:
@@ -338,32 +335,31 @@ attributes:
     range: EdgeReport
   edges:
     name: edges
-    description: Represents a report for edges
+    description: Report summarizing knowledge graph edges
     from_schema: https://w3id.org/monarch-initiative/monarch-kg-qc-schema
     rank: 1000
-    multivalued: true
     alias: edges
     owner: Report
     domain_of:
     - Report
     range: EdgeReport
+    required: true
   nodes:
     name: nodes
-    description: Represents a report for nodes
+    description: Report summarizing knowledge graph nodes
     from_schema: https://w3id.org/monarch-initiative/monarch-kg-qc-schema
     rank: 1000
-    multivalued: true
     alias: nodes
     owner: Report
     domain_of:
     - Report
     range: NodeReport
+    required: true
   missing_nodes:
     name: missing_nodes
-    description: Represents a report for missing nodes
+    description: Report summarizing knowledge graph missing nodes
     from_schema: https://w3id.org/monarch-initiative/monarch-kg-qc-schema
     rank: 1000
-    multivalued: true
     alias: missing_nodes
     owner: Report
     domain_of:

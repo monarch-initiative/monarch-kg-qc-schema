@@ -317,7 +317,7 @@
 
 
 <h1 id="slot-nodes">Slot: nodes</h1>
-<p><em>Represents a report for nodes</em></p>
+<p><em>Report summarizing knowledge graph nodes</em></p>
 <p>URI: <a href="https://w3id.org/monarch-initiative/monarch-kg-qc-schema/nodes">monarch_kg_qc_schema:nodes</a></p>
 <!-- no inheritance hierarchy -->
 
@@ -344,7 +344,7 @@
 <p>Range: <a href="../NodeReport/">NodeReport</a></p>
 </li>
 <li>
-<p>Multivalued: True</p>
+<p>Required: True</p>
 </li>
 </ul>
 <h2 id="identifier-and-mapping-information">Identifier and Mapping Information</h2>
@@ -356,15 +356,15 @@
 <details>
 
 <pre><code class="language-yaml">name: nodes
-description: Represents a report for nodes
+description: Report summarizing knowledge graph nodes
 from_schema: https://w3id.org/monarch-initiative/monarch-kg-qc-schema
 rank: 1000
-multivalued: true
 alias: nodes
 owner: Report
 domain_of:
 - Report
 range: NodeReport
+required: true
 
 </code></pre>
 
